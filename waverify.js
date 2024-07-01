@@ -104,6 +104,7 @@ async function startup() {
             applicationId: result.app_id,
             privateKey: result.keyfile,
         }, {});
+        console.log("Got Vonage object for ", sid)
         vonage[sid].applications.updateApplication({
             id: result.app_id,
             name: "VIDS",
@@ -120,10 +121,11 @@ async function startup() {
         }).then(result => {
             console.log(result.capabilities.verify);
         }).catch(error => {
-            console.error(error);
+            console.error("Webhook creationg error! ", error);
         }
         );
     });
+    return true;
 }
 function push(uid, obj) {
     pusher.trigger(pchannel, `${pchannel}_` + uid, obj);
@@ -781,8 +783,7 @@ app.post("/qr", async (req, res) => {
 })
 
 if (!startup()) {
-    console.log("Startup error... quitting.");
-    process.exit(1);
+    console.log("Startup error...");
 }
 //const port = gnids.port || 8077;
 const port = process.env.VCR_PORT;
