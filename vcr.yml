@@ -1,0 +1,35 @@
+project:
+  name: waverify
+instance:
+  name: waverify
+  runtime: nodejs18
+  region: aws.use1
+  application-id: 75e57432-a99f-48fa-8953-156d3cb28fd5
+  environment:
+    - name: ENV_VAR
+      value: helloworld
+      secret: ""
+    - name: vidstoken
+      value: eyJhbGciOiJSUzI1NiIsInR5cCI
+    - name: baseurl
+      value: https://vids.vonage.com/vidsrv
+  entrypoint:
+    - node
+    - waverify.js
+debug:
+  name: debug
+  application-id: 75e57432-a99f-48fa-8953-156d3cb28fd5
+  environment:
+    - name: ENV_VAR
+      value: helloworld
+      secret: ""
+    - name: vidstoken
+      value: eyJhbGciOiJSUzI1NiIsInR5cCI
+    - name: baseurl
+      value: https://vids.vonage.com/vidsrv
+    - name: pchannel
+      value: waverify
+  entrypoint:
+    - nodemon
+    - --inspect
+    - waverify.js
